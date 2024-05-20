@@ -33,6 +33,7 @@ const Navigation = () => {
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger>
           <Button
+            asChild
             variant="outline"
             size="sm"
             className="font-normal bg-white/10 hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 

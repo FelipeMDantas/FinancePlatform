@@ -1,5 +1,5 @@
 import { insertAccountSchema } from "@/db/schema";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -7,8 +7,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  Form,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Trash } from "lucide-react";
 
 const formSchema = insertAccountSchema.pick({ name: true });
 
@@ -35,10 +38,10 @@ export const AccountForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
+    onSubmit(values);
   };
 
-  const handleDelete = (values: FormValues) => {
+  const handleDelete = () => {
     onDelete?.();
   };
 
@@ -64,6 +67,21 @@ export const AccountForm = ({
             </FormItem>
           )}
         />
+        <Button className="w-full" disabled={disabled}>
+          {id ? "Save changes" : "Create account"}
+        </Button>
+        {!!id && (
+          <Button
+            type="button"
+            disabled={disabled}
+            onClick={handleDelete}
+            className="w-full"
+            variant="outline"
+          >
+            <Trash className="size-4 mr-2" />
+            Delete account
+          </Button>
+        )}
       </form>
     </Form>
   );
