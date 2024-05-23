@@ -15,6 +15,20 @@
       "when": 1715827197812,
       "tag": "0001_panoramic_butterfly",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1716411652477,
+      "tag": "0002_slow_falcon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1716429486221,
+      "tag": "0003_friendly_patriot",
+      "breakpoints": true
     }
   ]
 }
