@@ -51,7 +51,7 @@ const app = new Hono()
           payee: transactions.payee,
           amount: transactions.amount,
           notes: transactions.notes,
-          account: accounts.name,
+          name: accounts.name,
           accountId: transactions.accountId,
         })
         .from(transactions)
@@ -125,6 +125,31 @@ const app = new Hono()
           id: createId(),
           ...values,
         })
+        .returning();
+
+      return c.json({ data });
+    }
+  )
+  .post(
+    "bulk-create",
+    clerkMiddleware(),
+    zValidator("json", z.array(insertTransactionsSchema.omit({ id: true }))),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid("json");
+
+      if (!auth?.userId) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      const data = await db
+        .insert(transactions)
+        .values(
+          values.map((value) => ({
+            id: createId(),
+            ...value,
+          }))
+        )
         .returning();
 
       return c.json({ data });
