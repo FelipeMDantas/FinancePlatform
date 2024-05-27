@@ -12,9 +12,9 @@ import { useCreateTransaction } from "../api/use-create-transaction";
 import { useGetCategories } from "@/features/categories/api/use-get-categories";
 import { useCreateCategory } from "@/features/categories/api/use-create-category";
 import { useCreateAccount } from "@/features/accounts/api/use-create-account";
-import { useGetTransactions } from "../api/use-get-transactions";
 import { TransactionForm } from "./transaction-form";
 import { Loader2 } from "lucide-react";
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 
 const formSchema = insertTransactionsSchema.omit({ id: true });
 
@@ -33,15 +33,13 @@ const NewTransactionSheet = () => {
     value: category.id,
   }));
 
-  const accountQuery = useGetTransactions();
+  const accountQuery = useGetAccounts();
   const accountMutation = useCreateAccount();
   const onCreateAccount = (name: string) => accountMutation.mutate({ name });
   const accountOptions = (accountQuery.data ?? []).map((account) => ({
     label: account.name,
     value: account.id,
   }));
-
-  //console.log(accountQuery.data);
 
   const isPending =
     createMutation.isPending ||

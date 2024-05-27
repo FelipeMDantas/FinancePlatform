@@ -51,7 +51,7 @@ const app = new Hono()
           payee: transactions.payee,
           amount: transactions.amount,
           notes: transactions.notes,
-          name: accounts.name,
+          account: accounts.name,
           accountId: transactions.accountId,
         })
         .from(transactions)
@@ -116,7 +116,7 @@ const app = new Hono()
       const values = c.req.valid("json");
 
       if (!auth?.userId) {
-        return c.json({ error: "unauthorized" }, 401);
+        return c.json({ error: "Unauthorized" }, 401);
       }
 
       const [data] = await db
@@ -164,7 +164,7 @@ const app = new Hono()
       const values = c.req.valid("json");
 
       if (!auth?.userId) {
-        return c.json({ error: "unauthorized" }, 401);
+        return c.json({ error: "Unauthorized" }, 401);
       }
 
       const transactionsToDelete = db.$with("transactions_to_delete").as(
