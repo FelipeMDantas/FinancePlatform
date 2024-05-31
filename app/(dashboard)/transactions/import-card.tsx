@@ -66,7 +66,9 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
         .map((row) => {
           const transformedRow = row.map((cell, index) => {
             const columnIndex = getColumnIndex(`column_${index}`);
-            return selectedColumns[`column_${columnIndex}`] ? cell : null;
+            return selectedColumns[`column_${columnIndex}`]
+              ? cell.trim()
+              : null;
           });
 
           return transformedRow.every((item) => item === null)
@@ -94,7 +96,7 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
       date: format(parse(item.date, dateFormat, new Date()), outputFormat),
     }));
 
-    console.log({ formattedData });
+    onSubmit(formattedData);
   };
 
   return (
