@@ -87,8 +87,6 @@ export function formatPercentage(
   value: number,
   options: { addPrefix?: boolean } = { addPrefix: false }
 ) {
-  console.log(value);
-
   const result = new Intl.NumberFormat("en-US", { style: "percent" }).format(
     value / 100
   );
